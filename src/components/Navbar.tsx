@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Projects", href: "#projects" },
-  { name: "Certifications", href: "#certifications" },
+  { name: "Home", href: "/" },
+  { name: "Projects", href: "/projects" },
+  { name: "Certifications", href: "/certifications" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -17,9 +19,15 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="nav-link font-medium">
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`nav-link font-medium ${
+                  location.pathname === link.href ? "text-primary" : ""
+                }`}
+              >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -36,14 +44,16 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border text-center">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block py-3 nav-link font-medium"
+                className={`block py-3 nav-link font-medium ${
+                  location.pathname === link.href ? "text-primary" : ""
+                }`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
         )}
