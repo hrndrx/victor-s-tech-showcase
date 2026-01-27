@@ -1,8 +1,9 @@
-import { Terminal, ChevronDown } from "lucide-react";
+import { Terminal } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative pt-16">
+    <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center relative">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Terminal-style greeting */}
@@ -39,24 +40,19 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-400">
-            <a
-              href="#projects"
+            <Link
+              to="/projects"
               className="px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 card-glow"
             >
               View My Work
-            </a>
-            <a
-              href="#certifications"
+            </Link>
+            <Link
+              to="/certifications"
               className="px-8 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300"
             >
               Certifications
-            </a>
+            </Link>
           </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="h-8 w-8 text-muted-foreground" />
         </div>
       </div>
 

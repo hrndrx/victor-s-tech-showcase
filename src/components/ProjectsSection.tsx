@@ -1,24 +1,7 @@
 import { useState } from "react";
 import { FolderOpen } from "lucide-react";
-import ProjectCard from "./ProjectCard";
-
-const categories = [
-  { id: "all", name: "All Projects" },
-  { id: "security", name: "Security" },
-  { id: "networking", name: "Networking" },
-  { id: "development", name: "Development" },
-];
-
-const projects: {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  type: "demo" | "report" | "finding";
-  category: string;
-  github?: string;
-  link?: string;
-}[] = [];
+import { Link } from "react-router-dom";
+import { projects, categories } from "@/data/projects";
 
 const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -27,8 +10,20 @@ const ProjectsSection = () => {
     ? projects 
     : projects.filter(p => p.category === activeCategory);
 
+  const typeColors = {
+    demo: "bg-primary/20 text-primary",
+    report: "bg-blue-500/20 text-blue-400",
+    finding: "bg-amber-500/20 text-amber-400",
+  };
+
+  const typeLabels = {
+    demo: "Demonstration",
+    report: "Report",
+    finding: "Finding",
+  };
+
   return (
-    <section id="projects" className="py-24">
+    <section className="min-h-[calc(100vh-4rem)] py-12">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
@@ -64,14 +59,35 @@ const ProjectsSection = () => {
         {/* Projects grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
-            <ProjectCard
+            <Link
               key={project.id}
-              title={project.title}
-              description={project.description}
-              tags={project.tags}
-              type={project.type}
-              github={project.github}
-            />
+              to={`/projects/${project.id}`}
+              className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 card-glow block"
+            >
+              {/* Type badge */}
+              <span className={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium ${typeColors[project.type]} mb-4`}>
+                {typeLabels[project.type]}
+              </span>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-muted-foreground mb-4 line-clamp-3">
+                {project.description}
+              </p>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="px-2 py-1 bg-secondary text-secondary-foreground text-xs font-mono rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Link>
           ))}
         </div>
 

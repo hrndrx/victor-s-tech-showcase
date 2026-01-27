@@ -20,7 +20,7 @@ const trainings: {
 
 const CertificationsSection = () => {
   return (
-    <section id="certifications" className="py-24 bg-card/30">
+    <section className="min-h-[calc(100vh-4rem)] py-12">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
@@ -37,49 +37,53 @@ const CertificationsSection = () => {
         </div>
 
         {/* Certifications */}
-        <div className="mb-16">
-          <div className="flex items-center gap-2 mb-6">
-            <BadgeCheck className="h-5 w-5 text-primary" />
-            <h3 className="text-xl font-bold font-mono">Certifications</h3>
+        {certifications.length > 0 && (
+          <div className="mb-16">
+            <div className="flex items-center gap-2 mb-6">
+              <BadgeCheck className="h-5 w-5 text-primary" />
+              <h3 className="text-xl font-bold font-mono">Certifications</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {certifications.map((cert) => (
+                <CertificationCard
+                  key={cert.id}
+                  title={cert.title}
+                  issuer={cert.issuer}
+                  date={cert.date}
+                  credentialUrl={cert.credentialUrl}
+                />
+              ))}
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {certifications.map((cert) => (
-              <CertificationCard
-                key={cert.id}
-                title={cert.title}
-                issuer={cert.issuer}
-                date={cert.date}
-                credentialUrl={cert.credentialUrl}
-              />
-            ))}
-          </div>
-        </div>
+        )}
 
         {/* Training */}
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <BadgeCheck className="h-5 w-5 text-primary" />
-            <h3 className="text-xl font-bold font-mono">Training & Platforms</h3>
+        {trainings.length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <BadgeCheck className="h-5 w-5 text-primary" />
+              <h3 className="text-xl font-bold font-mono">Training & Platforms</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {trainings.map((training) => (
+                <CertificationCard
+                  key={training.id}
+                  title={training.title}
+                  issuer={training.issuer}
+                  date={training.date}
+                  credentialUrl={training.credentialUrl}
+                />
+              ))}
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {trainings.map((training) => (
-              <CertificationCard
-                key={training.id}
-                title={training.title}
-                issuer={training.issuer}
-                date={training.date}
-                credentialUrl={training.credentialUrl}
-              />
-            ))}
-          </div>
-        </div>
+        )}
 
-        {/* Note */}
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground text-sm font-mono">
-            * Badge images and credential links will be updated as certifications are completed
-          </p>
-        </div>
+        {/* Empty state */}
+        {certifications.length === 0 && trainings.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Certifications and training will be added here.</p>
+          </div>
+        )}
       </div>
     </section>
   );
