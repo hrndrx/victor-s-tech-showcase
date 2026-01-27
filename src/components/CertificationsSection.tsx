@@ -1,52 +1,22 @@
 import { Award, BadgeCheck } from "lucide-react";
 import CertificationCard from "./CertificationCard";
 
-const certifications = [
-  {
-    id: 1,
-    title: "Google Cybersecurity Professional Certificate",
-    issuer: "Google via Coursera",
-    date: "2024",
-    credentialUrl: "#",
-  },
-  {
-    id: 2,
-    title: "CompTIA Security+ (In Progress)",
-    issuer: "CompTIA",
-    date: "Expected 2024",
-  },
-  {
-    id: 3,
-    title: "Introduction to Cybersecurity",
-    issuer: "Cisco Networking Academy",
-    date: "2024",
-    credentialUrl: "#",
-  },
-  {
-    id: 4,
-    title: "Networking Basics",
-    issuer: "Cisco Networking Academy",
-    date: "2024",
-    credentialUrl: "#",
-  },
-];
+const certifications: {
+  id: number;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialUrl?: string;
+  badgeImage?: string;
+}[] = [];
 
-const trainings = [
-  {
-    id: 1,
-    title: "TryHackMe Learning Paths",
-    issuer: "TryHackMe",
-    date: "Ongoing",
-    credentialUrl: "#",
-  },
-  {
-    id: 2,
-    title: "Hack The Box Academy",
-    issuer: "Hack The Box",
-    date: "Ongoing",
-    credentialUrl: "#",
-  },
-];
+const trainings: {
+  id: number;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialUrl?: string;
+}[] = [];
 
 const CertificationsSection = () => {
   return (

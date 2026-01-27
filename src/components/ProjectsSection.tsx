@@ -9,57 +9,16 @@ const categories = [
   { id: "development", name: "Development" },
 ];
 
-const projects = [
-  {
-    id: 1,
-    title: "Network Vulnerability Assessment",
-    description: "Conducted comprehensive vulnerability scans using Nessus and OpenVAS on a simulated enterprise network. Identified critical vulnerabilities and provided remediation strategies.",
-    tags: ["Nessus", "OpenVAS", "Vulnerability Scanning"],
-    type: "report" as const,
-    category: "security",
-  },
-  {
-    id: 2,
-    title: "Wireshark Traffic Analysis",
-    description: "Deep packet inspection and network traffic analysis to identify suspicious activities, malware communication patterns, and potential data exfiltration attempts.",
-    tags: ["Wireshark", "Packet Analysis", "Network Forensics"],
-    type: "finding" as const,
-    category: "networking",
-  },
-  {
-    id: 3,
-    title: "Home Lab Security Setup",
-    description: "Built a virtualized home lab environment with pfSense firewall, Splunk SIEM, and various security tools for hands-on practice and experimentation.",
-    tags: ["pfSense", "Splunk", "Virtualization"],
-    type: "demo" as const,
-    category: "security",
-  },
-  {
-    id: 4,
-    title: "Python Security Automation Scripts",
-    description: "Developed Python scripts for automating security tasks including log parsing, IP reputation checking, and basic port scanning utilities.",
-    tags: ["Python", "Automation", "Scripting"],
-    type: "demo" as const,
-    category: "development",
-    github: "#",
-  },
-  {
-    id: 5,
-    title: "Phishing Campaign Analysis",
-    description: "Analyzed real-world phishing emails, documented attack vectors, identified indicators of compromise, and created awareness documentation.",
-    tags: ["Phishing", "Email Security", "IOCs"],
-    type: "finding" as const,
-    category: "security",
-  },
-  {
-    id: 6,
-    title: "Network Topology Design",
-    description: "Designed and documented a secure network topology for a small business, including VLAN segmentation, firewall rules, and access control policies.",
-    tags: ["Network Design", "VLANs", "Firewall"],
-    type: "report" as const,
-    category: "networking",
-  },
-];
+const projects: {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  type: "demo" | "report" | "finding";
+  category: string;
+  github?: string;
+  link?: string;
+}[] = [];
 
 const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");

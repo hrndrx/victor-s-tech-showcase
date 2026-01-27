@@ -14,8 +14,7 @@ const HeroSection = () => {
           </div>
 
           {/* Main heading */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-up delay-100">
-            Hi, I'm{" "}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 animate-fade-up delay-100">
             <span className="text-gradient">Jjemba Victor Wasswa</span>
           </h1>
 
