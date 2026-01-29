@@ -1,16 +1,7 @@
-import { Award, BadgeCheck } from "lucide-react";
-import CertificationCard from "./CertificationCard";
+import { useEffect } from "react";
+import { Award, BadgeCheck, Medal } from "lucide-react";
 
-const certifications: {
-  id: number;
-  title: string;
-  issuer: string;
-  date: string;
-  credentialUrl?: string;
-  badgeImage?: string;
-}[] = [];
-
-const trainings: {
+const certificates: {
   id: number;
   title: string;
   issuer: string;
@@ -19,6 +10,18 @@ const trainings: {
 }[] = [];
 
 const CertificationsSection = () => {
+  useEffect(() => {
+    // Load Credly embed script
+    const script = document.createElement("script");
+    script.src = "//cdn.credly.com/assets/utilities/embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <section className="min-h-[calc(100vh-4rem)] py-12">
       <div className="container mx-auto px-4">
@@ -36,54 +39,38 @@ const CertificationsSection = () => {
           </p>
         </div>
 
-        {/* Certifications */}
-        {certifications.length > 0 && (
-          <div className="mb-16">
-            <div className="flex items-center gap-2 mb-6">
-              <BadgeCheck className="h-5 w-5 text-primary" />
-              <h3 className="text-xl font-bold font-mono">Certifications</h3>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {certifications.map((cert) => (
-                <CertificationCard
-                  key={cert.id}
-                  title={cert.title}
-                  issuer={cert.issuer}
-                  date={cert.date}
-                  credentialUrl={cert.credentialUrl}
-                />
-              ))}
-            </div>
+        {/* Badges Section */}
+        <div className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <Medal className="h-5 w-5 text-primary" />
+            <h3 className="text-xl font-bold font-mono">Badges</h3>
           </div>
-        )}
+          <div className="flex flex-wrap gap-6">
+            <div
+              data-iframe-width="150"
+              data-iframe-height="270"
+              data-share-badge-id="136c8266-9689-4e9a-baa8-8462bb229303"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+          </div>
+        </div>
 
-        {/* Training */}
-        {trainings.length > 0 && (
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <BadgeCheck className="h-5 w-5 text-primary" />
-              <h3 className="text-xl font-bold font-mono">Training & Platforms</h3>
-            </div>
+        {/* Certificates Section */}
+        <div>
+          <div className="flex items-center gap-2 mb-6">
+            <BadgeCheck className="h-5 w-5 text-primary" />
+            <h3 className="text-xl font-bold font-mono">Certificates</h3>
+          </div>
+          {certificates.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-4">
-              {trainings.map((training) => (
-                <CertificationCard
-                  key={training.id}
-                  title={training.title}
-                  issuer={training.issuer}
-                  date={training.date}
-                  credentialUrl={training.credentialUrl}
-                />
-              ))}
+              {/* Certificates will be mapped here */}
             </div>
-          </div>
-        )}
-
-        {/* Empty state */}
-        {certifications.length === 0 && trainings.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">Certifications and training will be added here.</p>
-          </div>
-        )}
+          ) : (
+            <div className="text-center py-8 border border-dashed border-border rounded-lg">
+              <p className="text-muted-foreground">Certificates will be added here.</p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
