@@ -1,5 +1,4 @@
 import { Terminal } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -21,11 +20,11 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-mono animate-fade-up delay-200">
-            IT Student | Aspiring Cybersecurity Analyst
+            IT Student | Aspiring Cyber Security Specialist
           </p>
 
           {/* Bio */}
-          <div className="max-w-3xl mx-auto mb-12 animate-fade-up delay-300">
+          <div className="max-w-3xl mx-auto animate-fade-up delay-300">
             <p className="text-foreground/80 leading-relaxed text-lg">
               My interest in technology naturally led me to computer networks and network security, 
               and ultimately to <span className="text-primary font-semibold">cybersecurity</span>, 
@@ -36,22 +35,6 @@ const HeroSection = () => {
               roles as I continue my studies, grow my expertise, and develop professionally within 
               real-world cybersecurity environments.
             </p>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-400">
-            <Link
-              to="/projects"
-              className="px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 card-glow"
-            >
-              View My Work
-            </Link>
-            <Link
-              to="/certifications"
-              className="px-8 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300"
-            >
-              Certifications
-            </Link>
           </div>
         </div>
       </div>

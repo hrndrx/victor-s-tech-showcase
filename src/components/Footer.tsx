@@ -1,4 +1,4 @@
-import { Shield, Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,13 +6,7 @@ const Footer = () => {
   return (
     <footer className="py-12 border-t border-border">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo */}
-          <div className="flex items-center gap-2 font-mono font-bold">
-            <Shield className="h-5 w-5 text-primary" />
-            <span>JVW</span>
-            <span className="text-primary">_</span>
-          </div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
 
           {/* Social Links */}
           <div className="flex items-center gap-4">

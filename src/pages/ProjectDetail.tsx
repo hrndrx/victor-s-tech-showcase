@@ -96,61 +96,71 @@ const ProjectDetail = () => {
         {/* Documentation */}
         {project.documentation && (
           <div className="space-y-8">
-            {/* Introduction */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-xl font-bold mb-4 font-mono text-primary">1. Introduction</h2>
-              <p className="text-foreground/80 leading-relaxed">
-                {project.documentation.introduction}
-              </p>
-            </div>
-
-            {/* Sections */}
-            {project.documentation.sections.map((section, index) => (
-              <div key={index} className="bg-card border border-border rounded-xl p-6">
-                <h2 className="text-xl font-bold mb-4 font-mono text-primary">
-                  {index + 2}. {section.title}
-                </h2>
-                <p className="text-foreground/80 leading-relaxed mb-4">
-                  {section.content}
-                </p>
-                
-                {section.subsections && section.subsections.map((subsection, subIndex) => (
-                  <div key={subIndex} className="mt-4 pl-4 border-l-2 border-primary/30">
-                    <h3 className="text-lg font-semibold mb-2 text-foreground">
-                      {index + 2}.{subIndex + 1} {subsection.title}
-                    </h3>
-                    <p className="text-foreground/70 leading-relaxed">
-                      {subsection.content}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ))}
-
-            {/* Images */}
+            {/* Screenshots at the top with download */}
             {project.documentation.images.length > 0 && (
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h2 className="text-xl font-bold mb-6 font-mono text-primary">Screenshots & Diagrams</h2>
-                <div className="space-y-6">
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold font-mono text-primary">Screenshots & Diagrams</h2>
+                <div className="grid gap-6">
                   {project.documentation.images.map((image, index) => (
-                    <div key={index} className="space-y-2">
+                    <div key={index} className="space-y-3">
                       <img
                         src={image.src}
                         alt={image.alt}
                         className="w-full rounded-lg border border-border"
                       />
-                      <p className="text-sm text-muted-foreground text-center italic">
-                        {image.caption}
-                      </p>
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm text-muted-foreground italic">
+                          {image.caption}
+                        </p>
+                        <a
+                          href={image.src}
+                          download
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" x2="12" y1="15" y2="3" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Conclusion */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-xl font-bold mb-4 font-mono text-primary">Conclusion</h2>
+            {/* Full documentation as continuous text */}
+            <div className="prose prose-invert max-w-none">
+              <h2 className="text-xl font-bold font-mono text-primary mb-4">1. Introduction</h2>
+              <p className="text-foreground/80 leading-relaxed mb-8">
+                {project.documentation.introduction}
+              </p>
+
+              {project.documentation.sections.map((section, index) => (
+                <div key={index} className="mb-8">
+                  <h2 className="text-xl font-bold font-mono text-primary mb-4">
+                    {index + 2}. {section.title}
+                  </h2>
+                  <p className="text-foreground/80 leading-relaxed mb-4">
+                    {section.content}
+                  </p>
+                  
+                  {section.subsections && section.subsections.map((subsection, subIndex) => (
+                    <div key={subIndex} className="ml-4 mb-4">
+                      <h3 className="text-lg font-semibold mb-2 text-foreground">
+                        {index + 2}.{subIndex + 1} {subsection.title}
+                      </h3>
+                      <p className="text-foreground/70 leading-relaxed">
+                        {subsection.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ))}
+
+              <h2 className="text-xl font-bold font-mono text-primary mb-4">Conclusion</h2>
               <p className="text-foreground/80 leading-relaxed">
                 {project.documentation.conclusion}
               </p>
