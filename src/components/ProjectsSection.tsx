@@ -1,15 +1,8 @@
-import { useState } from "react";
 import { FolderOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projects, categories } from "@/data/projects";
+import { projects } from "@/data/projects";
 
 const ProjectsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
-
-  const filteredProjects = activeCategory === "all" 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
-
   const typeColors = {
     demo: "bg-primary/20 text-primary",
     report: "bg-blue-500/20 text-blue-400",
@@ -39,45 +32,30 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        {/* Category filters */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
-                activeCategory === category.id
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-card border border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
+        {/* Projects grid - larger square cards */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {projects.map((project) => (
             <Link
               key={project.id}
               to={`/projects/${project.id}`}
-              className="group bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 card-glow block"
+              className="group bg-card border border-border rounded-xl p-8 hover:border-primary/50 transition-all duration-300 card-glow block aspect-square flex flex-col justify-between"
             >
               {/* Type badge */}
-              <span className={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium ${typeColors[project.type]} mb-4`}>
-                {typeLabels[project.type]}
-              </span>
+              <div>
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium ${typeColors[project.type]} mb-4`}>
+                  {typeLabels[project.type]}
+                </span>
 
-              {/* Title */}
-              <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
+                {/* Title */}
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  {project.title}
+                </h3>
 
-              {/* Description */}
-              <p className="text-muted-foreground mb-4 line-clamp-3">
-                {project.description}
-              </p>
+                {/* Description */}
+                <p className="text-muted-foreground mb-6 line-clamp-4">
+                  {project.description}
+                </p>
+              </div>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2">
@@ -92,9 +70,9 @@ const ProjectsSection = () => {
         </div>
 
         {/* Empty state */}
-        {filteredProjects.length === 0 && (
+        {projects.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No projects in this category yet.</p>
+            <p className="text-muted-foreground">No projects yet.</p>
           </div>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Award, BadgeCheck, Medal, Download } from "lucide-react";
 
 const certificates = [
@@ -19,6 +19,8 @@ const certificates = [
 ];
 
 const CertificationsSection = () => {
+  const [activeTab, setActiveTab] = useState<"badges" | "certificates">("badges");
+
   useEffect(() => {
     // Load Credly embed script
     const script = document.createElement("script");
@@ -35,7 +37,7 @@ const CertificationsSection = () => {
     <section className="min-h-[calc(100vh-4rem)] py-12">
       <div className="container mx-auto px-4">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
             <Award className="h-6 w-6 text-primary" />
             <span className="font-mono text-primary">./certifications</span>
@@ -48,13 +50,37 @@ const CertificationsSection = () => {
           </p>
         </div>
 
-        {/* Badges Section */}
-        <div className="mb-16">
-          <div className="flex items-center gap-2 mb-6">
-            <Medal className="h-5 w-5 text-primary" />
-            <h3 className="text-xl font-bold font-mono">Badges</h3>
+        {/* Sub Navigation Bar */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex bg-muted rounded-lg p-1">
+            <button
+              onClick={() => setActiveTab("badges")}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-md font-medium transition-all ${
+                activeTab === "badges"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Medal className="h-4 w-4" />
+              Badges
+            </button>
+            <button
+              onClick={() => setActiveTab("certificates")}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-md font-medium transition-all ${
+                activeTab === "certificates"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <BadgeCheck className="h-4 w-4" />
+              Certificates
+            </button>
           </div>
-          <div className="flex flex-wrap gap-6">
+        </div>
+
+        {/* Badges Tab Content */}
+        {activeTab === "badges" && (
+          <div className="flex flex-wrap justify-center gap-8">
             <div className="flex flex-col items-center">
               <div
                 data-iframe-width="200"
@@ -65,15 +91,11 @@ const CertificationsSection = () => {
               <p className="mt-2 text-sm font-medium text-muted-foreground">Introduction to Cybersecurity</p>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Certificates Section */}
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <BadgeCheck className="h-5 w-5 text-primary" />
-            <h3 className="text-xl font-bold font-mono">Certificates</h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
+        {/* Certificates Tab Content */}
+        {activeTab === "certificates" && (
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {certificates.map((cert) => (
               <div
                 key={cert.id}
@@ -97,7 +119,7 @@ const CertificationsSection = () => {
               </div>
             ))}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
