@@ -1,13 +1,22 @@
 import { useEffect } from "react";
-import { Award, BadgeCheck, Medal } from "lucide-react";
+import { Award, BadgeCheck, Medal, Download } from "lucide-react";
 
-const certificates: {
-  id: number;
-  title: string;
-  issuer: string;
-  date: string;
-  credentialUrl?: string;
-}[] = [];
+const certificates = [
+  {
+    id: 1,
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco Networking Academy",
+    date: "24 Jan 2026",
+    pdfUrl: "/certificates/introduction-to-cybersecurity.pdf",
+  },
+  {
+    id: 2,
+    title: "Getting Started with Cisco Packet Tracer",
+    issuer: "Cisco Networking Academy",
+    date: "25 Jan 2026",
+    pdfUrl: "/certificates/getting-started-cisco-packet-tracer.pdf",
+  },
+];
 
 const CertificationsSection = () => {
   useEffect(() => {
@@ -46,12 +55,15 @@ const CertificationsSection = () => {
             <h3 className="text-xl font-bold font-mono">Badges</h3>
           </div>
           <div className="flex flex-wrap gap-6">
-            <div
-              data-iframe-width="150"
-              data-iframe-height="270"
-              data-share-badge-id="136c8266-9689-4e9a-baa8-8462bb229303"
-              data-share-badge-host="https://www.credly.com"
-            ></div>
+            <div className="flex flex-col items-center">
+              <div
+                data-iframe-width="200"
+                data-iframe-height="350"
+                data-share-badge-id="136c8266-9689-4e9a-baa8-8462bb229303"
+                data-share-badge-host="https://www.credly.com"
+              ></div>
+              <p className="mt-2 text-sm font-medium text-muted-foreground">Introduction to Cybersecurity</p>
+            </div>
           </div>
         </div>
 
@@ -61,15 +73,30 @@ const CertificationsSection = () => {
             <BadgeCheck className="h-5 w-5 text-primary" />
             <h3 className="text-xl font-bold font-mono">Certificates</h3>
           </div>
-          {certificates.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Certificates will be mapped here */}
-            </div>
-          ) : (
-            <div className="text-center py-8 border border-dashed border-border rounded-lg">
-              <p className="text-muted-foreground">Certificates will be added here.</p>
-            </div>
-          )}
+          <div className="grid md:grid-cols-2 gap-4">
+            {certificates.map((cert) => (
+              <div
+                key={cert.id}
+                className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">{cert.title}</h4>
+                    <p className="text-sm text-muted-foreground mb-2">{cert.issuer}</p>
+                    <p className="text-xs text-muted-foreground">Completed: {cert.date}</p>
+                  </div>
+                  <a
+                    href={cert.pdfUrl}
+                    download
+                    className="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                    title="Download Certificate"
+                  >
+                    <Download className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
