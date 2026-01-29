@@ -96,41 +96,6 @@ const ProjectDetail = () => {
         {/* Documentation */}
         {project.documentation && (
           <div className="space-y-8">
-            {/* Screenshots at the top with download */}
-            {project.documentation.images.length > 0 && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-bold font-mono text-primary">Screenshots & Diagrams</h2>
-                <div className="grid gap-6">
-                  {project.documentation.images.map((image, index) => (
-                    <div key={index} className="space-y-3">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full rounded-lg border border-border"
-                      />
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm text-muted-foreground italic">
-                          {image.caption}
-                        </p>
-                        <a
-                          href={image.src}
-                          download
-                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="7 10 12 15 17 10" />
-                            <line x1="12" x2="12" y1="15" y2="3" />
-                          </svg>
-                          Download
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Full documentation as continuous text */}
             <div className="prose prose-invert max-w-none">
               <h2 className="text-xl font-bold font-mono text-primary mb-4">1. Introduction</h2>
@@ -165,6 +130,61 @@ const ProjectDetail = () => {
                 {project.documentation.conclusion}
               </p>
             </div>
+
+            {/* Screenshots after the text with download */}
+            {project.documentation.images.length > 0 && (
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold font-mono text-primary">Screenshots & Diagrams</h2>
+                <div className="grid gap-6">
+                  {project.documentation.images.map((image, index) => (
+                    <div key={index} className="space-y-3">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full rounded-lg border border-border"
+                      />
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm text-muted-foreground italic">
+                          {image.caption}
+                        </p>
+                        <a
+                          href={image.src}
+                          download
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" x2="12" y1="15" y2="3" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Packet Tracer File Download */}
+            {project.id === "simple-office-network" && (
+              <div className="p-6 rounded-lg border border-border bg-card">
+                <h3 className="text-lg font-bold mb-2">Download Project File</h3>
+                <p className="text-muted-foreground mb-4">Get the Cisco Packet Tracer file to explore this network yourself.</p>
+                <a
+                  href="/projects/simple_office_lan.pkt"
+                  download
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                  </svg>
+                  Download .pkt File
+                </a>
+              </div>
+            )}
           </div>
         )}
       </div>
