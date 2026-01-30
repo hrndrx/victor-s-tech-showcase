@@ -1,5 +1,7 @@
 import networkTopology from "@/assets/projects/office-network-topology.png";
 import pingTest from "@/assets/projects/office-network-ping-test.png";
+import dhcpTopology from "@/assets/projects/dhcp-router-topology.png";
+import dhcpPingTest from "@/assets/projects/dhcp-router-ping-test.png";
 
 export interface Project {
   id: string;
@@ -107,6 +109,64 @@ export const projects: Project[] = [
         }
       ],
       conclusion: "The simple office network was successfully designed, configured, and tested. All devices obtained IP addresses dynamically and communicated effectively within the same LAN. The successful ping test validates correct network configuration and connectivity. This setup reflects a practical and scalable model used in real office environments."
+    }
+  },
+  {
+    id: "dhcp-wireless-router",
+    title: "Configuring DHCP on a Wireless Router",
+    description: "Configuration of Dynamic Host Configuration Protocol (DHCP) on a wireless router so that multiple PCs could automatically obtain IP addresses and communicate successfully within the same local area network (LAN).",
+    tags: ["Cisco Packet Tracer", "DHCP", "Wireless Router", "LAN", "Networking"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "The objective of this practical was to configure Dynamic Host Configuration Protocol (DHCP) on a wireless router so that multiple PCs could automatically obtain IP addresses and communicate successfully within the same local area network (LAN).",
+      sections: [
+        {
+          title: "Network Topology Overview",
+          content: "The network consists of one Wireless Router and three PCs (PC0, PC1, and PC2). Each PC is connected directly to the router using Ethernet cables. The router acts as the default gateway, the DHCP server, and the central device that interconnects all hosts in the LAN."
+        },
+        {
+          title: "Initial Observation",
+          content: "Before configuring the router, I opened the IP Configuration settings on one of the PCs. From this, I observed that the default gateway was 192.168.0.1, which indicated that this was the router's default IP address."
+        },
+        {
+          title: "Accessing the Router GUI",
+          content: "To configure the router, I opened a web browser on the PC and entered the default gateway IP address: http://192.168.0.1. The router's Graphical User Interface (GUI) loaded. I logged in using the default credentials (Username: admin, Password: admin). This provided access to the router's configuration settings."
+        },
+        {
+          title: "Router IP Address Configuration",
+          content: "To place the network on a new subnet and avoid conflicts, I navigated to the LAN / Network settings section. I changed the router's IP address to 192.168.5.1. This new address became the default gateway for all devices on the network. I saved the settings and allowed the router to apply the changes."
+        },
+        {
+          title: "DHCP Configuration",
+          content: "After setting the router IP, I enabled the DHCP service on the router. I configured the DHCP address pool with a starting IP address of 192.168.5.100. The range was set to automatically assign IP addresses to hosts joining the network. The router was now capable of dynamically assigning IP address, subnet mask, and default gateway."
+        },
+        {
+          title: "PC Configuration",
+          content: "On each PC (PC0, PC1, and PC2), I opened Desktop → IP Configuration. I selected DHCP as the IP assignment method. Each PC automatically received a unique IP address in the 192.168.5.0/24 network with default gateway set to 192.168.5.1. This confirmed that the router's DHCP server was functioning correctly."
+        },
+        {
+          title: "Connectivity Testing",
+          content: "To verify successful communication, from PC0, I opened the Command Prompt and ran a ping test to PC1: ping 192.168.5.101. The ping was successful, with zero packet loss. This confirmed that all PCs were on the same network, DHCP addressing was correct, and the router was properly routing traffic within the LAN."
+        },
+        {
+          title: "Key Learning Outcome",
+          content: "This exercise improved my understanding of DHCP operation, router configuration via GUI, IP addressing and default gateways, and basic LAN connectivity testing using ping. DHCP simplifies network management by automatically assigning IP addresses, reducing configuration errors and enabling scalable network deployment."
+        }
+      ],
+      images: [
+        {
+          src: dhcpTopology,
+          alt: "DHCP Wireless Router Network Topology",
+          caption: "Cisco Packet Tracer network topology showing wireless router connected to three PCs via Ethernet"
+        },
+        {
+          src: dhcpPingTest,
+          alt: "DHCP Ping Test Results",
+          caption: "Successful ping test from PC0 to PC1 (192.168.5.101) showing 0% packet loss"
+        }
+      ],
+      conclusion: "This practical demonstrated the successful configuration of DHCP on a wireless router using the GUI interface. By changing the router's IP address, enabling DHCP, and configuring all PCs to obtain IP addresses automatically, I was able to establish full connectivity between hosts."
     }
   }
 ];
