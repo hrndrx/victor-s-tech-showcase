@@ -95,26 +95,38 @@ const CertificationsSection = () => {
 
         {/* Certificates Tab Content */}
         {activeTab === "certificates" && (
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {certificates.map((cert) => (
               <div
                 key={cert.id}
-                className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors"
+                className="rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
               >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h4 className="font-semibold text-lg mb-1">{cert.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-2">{cert.issuer}</p>
-                    <p className="text-xs text-muted-foreground">Completed: {cert.date}</p>
+                {/* PDF Preview */}
+                <div className="aspect-[4/3] bg-muted/50 relative">
+                  <iframe
+                    src={`${cert.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                    className="w-full h-full border-0"
+                    title={cert.title}
+                  />
+                </div>
+                
+                {/* Certificate Info */}
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-lg mb-1 truncate">{cert.title}</h4>
+                      <p className="text-sm text-muted-foreground mb-1">{cert.issuer}</p>
+                      <p className="text-xs text-muted-foreground">Completed: {cert.date}</p>
+                    </div>
+                    <a
+                      href={cert.pdfUrl}
+                      download
+                      className="flex-shrink-0 p-2.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                      title="Download Certificate"
+                    >
+                      <Download className="h-5 w-5" />
+                    </a>
                   </div>
-                  <a
-                    href={cert.pdfUrl}
-                    download
-                    className="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
-                    title="Download Certificate"
-                  >
-                    <Download className="h-5 w-5" />
-                  </a>
                 </div>
               </div>
             ))}
