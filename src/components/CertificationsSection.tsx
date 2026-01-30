@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { Award, BadgeCheck, Medal, Download, ExternalLink, FileText } from "lucide-react";
+import { Award, BadgeCheck, Medal, Download, ExternalLink } from "lucide-react";
+
+import introToCybersecurityImg from "@/assets/certificates/introduction-to-cybersecurity.png";
+import packetTracerImg from "@/assets/certificates/getting-started-cisco-packet-tracer.png";
 
 const certificates = [
   {
@@ -8,6 +11,7 @@ const certificates = [
     issuer: "Cisco Networking Academy",
     date: "24 Jan 2026",
     pdfUrl: "/certificates/introduction-to-cybersecurity.pdf",
+    image: introToCybersecurityImg,
     description: "Foundational understanding of cybersecurity concepts, threats, and protection strategies.",
   },
   {
@@ -16,6 +20,7 @@ const certificates = [
     issuer: "Cisco Networking Academy",
     date: "25 Jan 2026",
     pdfUrl: "/certificates/getting-started-cisco-packet-tracer.pdf",
+    image: packetTracerImg,
     description: "Hands-on experience with network simulation and configuration using Packet Tracer.",
   },
 ];
@@ -103,30 +108,19 @@ const CertificationsSection = () => {
                 key={cert.id}
                 className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
               >
-                {/* Certificate Visual Header */}
-                <div className="aspect-[16/9] bg-gradient-to-br from-primary/10 via-muted/50 to-primary/5 relative flex items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <FileText className="h-8 w-8 text-primary" />
-                    </div>
-                    <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider mb-2">
-                      {cert.issuer}
-                    </div>
-                    <h3 className="font-semibold text-lg text-foreground leading-tight">
-                      {cert.title}
-                    </h3>
-                  </div>
-                  
-                  {/* Decorative elements */}
-                  <div className="absolute top-4 right-4 w-20 h-20 border border-primary/20 rounded-full opacity-50" />
-                  <div className="absolute bottom-4 left-4 w-12 h-12 border border-primary/10 rounded-full opacity-30" />
+                {/* Certificate Image */}
+                <div className="aspect-[4/3] bg-muted overflow-hidden">
+                  <img 
+                    src={cert.image} 
+                    alt={cert.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
                 
                 {/* Certificate Info */}
                 <div className="p-5 border-t border-border">
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {cert.description}
-                  </p>
+                  <h3 className="font-semibold text-lg text-foreground mb-1">{cert.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{cert.issuer}</p>
                   
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-muted-foreground">
