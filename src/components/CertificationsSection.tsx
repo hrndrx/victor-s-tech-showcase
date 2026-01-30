@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Award, BadgeCheck, Medal, Download } from "lucide-react";
+import { Award, BadgeCheck, Medal, Download, ExternalLink, FileText } from "lucide-react";
 
 const certificates = [
   {
@@ -8,6 +8,7 @@ const certificates = [
     issuer: "Cisco Networking Academy",
     date: "24 Jan 2026",
     pdfUrl: "/certificates/introduction-to-cybersecurity.pdf",
+    description: "Foundational understanding of cybersecurity concepts, threats, and protection strategies.",
   },
   {
     id: 2,
@@ -15,6 +16,7 @@ const certificates = [
     issuer: "Cisco Networking Academy",
     date: "25 Jan 2026",
     pdfUrl: "/certificates/getting-started-cisco-packet-tracer.pdf",
+    description: "Hands-on experience with network simulation and configuration using Packet Tracer.",
   },
 ];
 
@@ -99,33 +101,59 @@ const CertificationsSection = () => {
             {certificates.map((cert) => (
               <div
                 key={cert.id}
-                className="rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
+                className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
               >
-                {/* PDF Preview */}
-                <div className="aspect-[4/3] bg-muted/50 relative">
-                  <iframe
-                    src={`${cert.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                    className="w-full h-full border-0"
-                    title={cert.title}
-                  />
+                {/* Certificate Visual Header */}
+                <div className="aspect-[16/9] bg-gradient-to-br from-primary/10 via-muted/50 to-primary/5 relative flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <FileText className="h-8 w-8 text-primary" />
+                    </div>
+                    <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider mb-2">
+                      {cert.issuer}
+                    </div>
+                    <h3 className="font-semibold text-lg text-foreground leading-tight">
+                      {cert.title}
+                    </h3>
+                  </div>
+                  
+                  {/* Decorative elements */}
+                  <div className="absolute top-4 right-4 w-20 h-20 border border-primary/20 rounded-full opacity-50" />
+                  <div className="absolute bottom-4 left-4 w-12 h-12 border border-primary/10 rounded-full opacity-30" />
                 </div>
                 
                 {/* Certificate Info */}
-                <div className="p-5">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-lg mb-1 truncate">{cert.title}</h4>
-                      <p className="text-sm text-muted-foreground mb-1">{cert.issuer}</p>
-                      <p className="text-xs text-muted-foreground">Completed: {cert.date}</p>
+                <div className="p-5 border-t border-border">
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                    {cert.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      Completed: {cert.date}
+                    </span>
+                    
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={cert.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        title="View Certificate"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        View
+                      </a>
+                      <a
+                        href={cert.pdfUrl}
+                        download
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                        title="Download Certificate"
+                      >
+                        <Download className="h-4 w-4" />
+                        Download
+                      </a>
                     </div>
-                    <a
-                      href={cert.pdfUrl}
-                      download
-                      className="flex-shrink-0 p-2.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
-                      title="Download Certificate"
-                    >
-                      <Download className="h-5 w-5" />
-                    </a>
                   </div>
                 </div>
               </div>
