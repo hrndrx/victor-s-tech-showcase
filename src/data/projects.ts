@@ -211,7 +211,7 @@ export const projects: Project[] = [
           subsections: [
             {
               title: "Observation",
-              content: "All PCs received a private IP address with the wireless router as the default gateway. No public IP addresses were assigned directly to the PCs. Private IP addresses cannot cross the internet. Therefore, NAT is required to translate private IP addresses to a public IP address for external communication."
+              content: "All PCs received a private IP address (e.g., PC0: 192.168.1.2) with the wireless router (192.168.1.1) as the default gateway. No public IP addresses were assigned directly to the PCs. Private IP addresses cannot cross the internet. Therefore, NAT is required to translate private IP addresses to a public IP address for external communication."
             }
           ]
         },
