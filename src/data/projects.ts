@@ -231,11 +231,11 @@ export const projects: Project[] = [
           subsections: [
             {
               title: "Inbound PDU (Before NAT)",
-              content: "Source IP: Private IP address of the PC (e.g., 192.168.x.x) | Destination IP: Public IP address of the web server"
+              content: "Source IP: Private IP address of the PC (e.g., 192.168.x.x) | Destination IP: 209.165.200.228 (web server)"
             },
             {
               title: "Outbound PDU (After NAT)",
-              content: "Source IP: Public IP address of the wireless router (ISP-assigned) | Destination IP: Public IP address of the web server"
+              content: "Source IP: 209.165.200.227 (public IP of wireless router, ISP-assigned) | Destination IP: 209.165.200.228 (web server)"
             },
             {
               title: "Key Observation",
