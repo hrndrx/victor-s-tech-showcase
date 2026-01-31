@@ -102,14 +102,14 @@ const CertificationsSection = () => {
 
         {/* Certificates Tab Content */}
         {activeTab === "certificates" && (
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {certificates.map((cert) => (
               <div
                 key={cert.id}
                 className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
               >
                 {/* Certificate Image */}
-                <div className="aspect-[4/3] bg-muted overflow-hidden">
+                <div className="aspect-[16/10] bg-muted overflow-hidden">
                   <img 
                     src={cert.image} 
                     alt={cert.title}
