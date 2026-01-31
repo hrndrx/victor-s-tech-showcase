@@ -4,6 +4,10 @@ import dhcpTopology from "@/assets/projects/dhcp-router-topology.png";
 import dhcpPingTest from "@/assets/projects/dhcp-router-ping-test.png";
 import natTopology from "@/assets/projects/nat-topology.png";
 import natSimulation from "@/assets/projects/nat-simulation.png";
+import trafficFlowPdu from "@/assets/projects/traffic-flow-unrouted-pdu.png";
+import trafficFlowRoutedTopology from "@/assets/projects/traffic-flow-routed-topology.png";
+import trafficFlowIpconfig from "@/assets/projects/traffic-flow-ipconfig-renew.png";
+import trafficFlowPing from "@/assets/projects/traffic-flow-ping-test.png";
 
 export interface Project {
   id: string;
@@ -261,6 +265,100 @@ export const projects: Project[] = [
         }
       ],
       conclusion: "This lab demonstrated how a wireless router uses NAT to allow devices with private IP addresses to communicate with external public networks. Internal hosts obtained private IP addresses through DHCP, while the router used its ISP-assigned public IP address to represent all internal devices when accessing the internet. Packet inspection in Simulation mode confirmed the translation of source IP addresses, validating the NAT process."
+    }
+  },
+  {
+    id: "traffic-flow-routed-network",
+    title: "Observing Traffic Flow in an Unrouted and Routed Network",
+    description: "Demonstration of how network efficiency can be improved by separating departments into multiple routed networks. Traffic flow is observed in both an unrouted LAN and a routed network to show the benefits of routing and subnetting in an enterprise environment.",
+    tags: ["Cisco Packet Tracer", "Routing", "Subnetting", "ARP", "DHCP", "LAN"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "XYZ LLC is a growing startup company whose existing network design uses a single IPv4 network for all departments. As the company expanded, this flat network design became inefficient due to increased broadcast traffic, resulting in noticeable network delays. This lab demonstrates how network efficiency can be improved by separating departments into multiple routed networks. Using Cisco Packet Tracer, traffic flow is observed in both an unrouted LAN and a routed network to clearly show the benefits of routing and subnetting in an enterprise environment.",
+      sections: [
+        {
+          title: "Objectives",
+          content: "The objectives of this lab were to observe traffic flow in an unrouted LAN, reconfigure the network to route between multiple LANs, observe and compare traffic flow in a routed network, and understand how routing improves network efficiency."
+        },
+        {
+          title: "Network Scenario Description",
+          content: "The original XYZ network consists of approximately 150 devices connected within a single IPv4 network. Different departments such as Sales, Finance, and Accounting are connected through switches, which are then connected to an edge router. The router only provides connectivity to the internet and does not perform routing between departments because all hosts share the same network. For demonstration purposes, the Packet Tracer topology shows a simplified version of the network with fewer hosts and departments. However, the behavior observed in this lab represents what would occur in a much larger real-world network."
+        },
+        {
+          title: "Part 1: Observing Traffic Flow in an Unrouted LAN",
+          content: "The ARP cache on host Sales 1 was cleared using 'arp -a' and 'arp -d' commands. This ensured that no MAC address entries were stored before beginning the traffic observation. Simulation mode was enabled in Packet Tracer. From Sales 2, a ping command was issued to the IP address of Sales 1. Using the Capture and Forward button, PDUs were observed as they moved through the network.",
+          subsections: [
+            {
+              title: "Analysis of the ARP Request PDU",
+              content: "Frame Source MAC Address: MAC address of Sales 2 | Frame Destination MAC Address: FFFF.FFFF.FFFF (broadcast address) | Packet Source IP Address: IP address of Sales 2 (192.168.1.3) | Packet Destination IP Address: IP address of Sales 1 (192.168.1.2). The destination MAC address is a broadcast address because the ARP cache on Sales 2 is empty. The host does not know the MAC address of Sales 1, so it sends an ARP request that is broadcast to all devices on the local network."
+            },
+            {
+              title: "Impact of ARP Broadcasts",
+              content: "All hosts on the LAN and the router interface connected to the LAN processed the ARP request. In an unrouted LAN, ARP requests are broadcast to every device on the network, regardless of department. As the number of hosts increases, ARP broadcasts occur more frequently. This consumes bandwidth and processing resources, reducing overall network efficiency and contributing to delays."
+            },
+            {
+              title: "ICMP Echo Request PDU",
+              content: "A new PDU with a different color was generated after the ARP process. This PDU is the first ICMP Echo Request packet sent by Sales 2 as part of the ping command to Sales 1."
+            }
+          ]
+        },
+        {
+          title: "Part 2: Reconfiguring the Network to Route Between LANs",
+          content: "The switches were disconnected from each other and instead connected directly to the edge router using copper straight-through cables. Each department switch was connected to a separate GigabitEthernet interface on the router. This change allowed the router to act as a gateway between different department networks.",
+          subsections: [
+            {
+              title: "IP Address Reconfiguration",
+              content: "The edge router was preconfigured with multiple IPv4 networks, one for each department. DHCP services were enabled on the router to automatically assign IP addresses to hosts. To immediately obtain new IP addresses, the 'ipconfig /renew' command was run on each host in the Finance and Sales departments."
+            },
+            {
+              title: "Assigned Networks",
+              content: "Accounting Network: 192.168.1.0/24 | Finance Network: 192.168.2.0/24 | Sales Network: 192.168.3.0/24"
+            }
+          ]
+        },
+        {
+          title: "Part 3: Observing Traffic Flow in the Routed Network",
+          content: "The ARP cache on Sales 2 was cleared again before testing. Simulation mode was enabled, and Sales 2 pinged Sales 1.",
+          subsections: [
+            {
+              title: "ARP Behavior in the Routed Network",
+              content: "Only Sales 1 and the router interface connected to the Sales network receive the ARP broadcast this time. This occurs because ARP broadcasts are now limited to the local subnet."
+            },
+            {
+              title: "Pinging Other Hosts and the Internet",
+              content: "Additional ping tests were performed between departments and to the internet server (209.165.200.112). In all cases, ARP requests remained contained within their respective networks and were forwarded appropriately by the router."
+            }
+          ]
+        },
+        {
+          title: "Benefits of Using Multiple IPv4 Networks",
+          content: "Using multiple IPv4 networks reduces unnecessary broadcast traffic by containing it within relevant departments. This improves network performance, enhances security, simplifies troubleshooting, and allows the network to scale efficiently as the organization grows."
+        }
+      ],
+      images: [
+        {
+          src: trafficFlowPdu,
+          alt: "PDU Information in Unrouted Network",
+          caption: "PDU Information showing Ethernet frame and IP packet details during ARP/ICMP communication in the unrouted LAN"
+        },
+        {
+          src: trafficFlowRoutedTopology,
+          alt: "Routed Network Topology",
+          caption: "Routed network topology showing XYZ LLC with separate department networks connected through the edge router to the internet"
+        },
+        {
+          src: trafficFlowIpconfig,
+          alt: "IP Configuration Renewal",
+          caption: "Command output showing 'ipconfig /renew' assigning new IP address (192.168.3.2) from the Sales network DHCP pool"
+        },
+        {
+          src: trafficFlowPing,
+          alt: "Ping Test in Routed Network",
+          caption: "Simulation mode showing ICMP ping test between hosts in the routed network configuration"
+        }
+      ],
+      conclusion: "This lab clearly demonstrated the inefficiency of an unrouted LAN in a growing enterprise environment. By implementing routing between departmental networks, broadcast traffic was reduced, network performance improved, and scalability was achieved. Routing is therefore a critical component in modern enterprise network design."
     }
   }
 ];
