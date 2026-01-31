@@ -2,6 +2,8 @@ import networkTopology from "@/assets/projects/office-network-topology.png";
 import pingTest from "@/assets/projects/office-network-ping-test.png";
 import dhcpTopology from "@/assets/projects/dhcp-router-topology.png";
 import dhcpPingTest from "@/assets/projects/dhcp-router-ping-test.png";
+import natTopology from "@/assets/projects/nat-topology.png";
+import natSimulation from "@/assets/projects/nat-simulation.png";
 
 export interface Project {
   id: string;
@@ -167,6 +169,98 @@ export const projects: Project[] = [
         }
       ],
       conclusion: "This practical demonstrated the successful configuration of DHCP on a wireless router using the GUI interface. By changing the router's IP address, enabling DHCP, and configuring all PCs to obtain IP addresses automatically, I was able to establish full connectivity between hosts."
+    }
+  },
+  {
+    id: "nat-wireless-router",
+    title: "Examining NAT on a Wireless Router",
+    description: "Examination of how Network Address Translation (NAT) operates on a wireless router, configuring multiple PCs to obtain IP addresses via DHCP, and observing how private IP addresses are translated to a public IP address when accessing an external network.",
+    tags: ["Cisco Packet Tracer", "NAT", "DHCP", "Networking", "TCP/IP"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "The purpose of this lab was to examine how Network Address Translation (NAT) operates on a wireless router, configure multiple PCs to obtain IP addresses via DHCP, and observe how private IP addresses are translated to a public IP address when accessing an external network.",
+      sections: [
+        {
+          title: "Network Topology Overview",
+          content: "The network consists of one wireless router acting as DHCP server for internal hosts and NAT device for internet access, four PCs connected to the wireless router using straight-through Ethernet cables, one external web server (ciscolearn.nat.com) representing an internet host, and an ISP cloud providing a public IP address to the router's Internet (WAN) interface."
+        },
+        {
+          title: "Part 1: Examining External Network Configuration",
+          content: "A PC was connected to the wireless router using a straight-through cable. DHCP was enabled on the PC to automatically obtain an IP address. The default gateway IP address was entered into a web browser to access the router's configuration page using admin credentials. The Status menu was selected, and the Internet Connection section was examined.",
+          subsections: [
+            {
+              title: "Observation",
+              content: "The IP address displayed under the Internet Connection section was assigned by the ISP DHCP server. This address represents the IP assigned to the router's WAN interface. This is a public IP address, because it is assigned by the ISP and is routable on the internet."
+            }
+          ]
+        },
+        {
+          title: "Part 2: Examining Internal Network Configuration",
+          content: "The Local Network option was selected under the Status menu. The Local Network IP address and DHCP server information were examined. The DHCP address pool assigned to internal hosts was reviewed.",
+          subsections: [
+            {
+              title: "Observation",
+              content: "The internal network uses an IP address from the private IP address range. The DHCP server distributes IP addresses within a private subnet. These are private IP addresses, which are used for internal communication and are not routable on the public internet."
+            }
+          ]
+        },
+        {
+          title: "Part 3: Connecting Additional PCs",
+          content: "Three additional PCs were connected to the wireless router. DHCP was enabled on all PCs. The ipconfig /all command was used on each PC to verify IP configuration.",
+          subsections: [
+            {
+              title: "Observation",
+              content: "All PCs received a private IP address with the wireless router as the default gateway. No public IP addresses were assigned directly to the PCs. Private IP addresses cannot cross the internet. Therefore, NAT is required to translate private IP addresses to a public IP address for external communication."
+            }
+          ]
+        },
+        {
+          title: "Part 4: Viewing NAT Translation (Simulation Mode)",
+          content: "Simulation mode was enabled and event filters were configured to show only TCP and HTTP. A Complex PDU was created with HTTP application, source device PC, destination device ciscolearn.nat.com, source port 1000, simulation type Periodic, and interval 120 seconds.",
+          subsections: [
+            {
+              title: "Observation",
+              content: "Traffic from the PC traveled to the wireless router. The router forwarded the traffic toward the external server."
+            }
+          ]
+        },
+        {
+          title: "Part 5: Examining Packet Headers (NAT in Action)",
+          content: "The packet headers were examined before and after NAT translation to understand how the source IP address changes.",
+          subsections: [
+            {
+              title: "Inbound PDU (Before NAT)",
+              content: "Source IP: Private IP address of the PC (e.g., 192.168.x.x) | Destination IP: Public IP address of the web server"
+            },
+            {
+              title: "Outbound PDU (After NAT)",
+              content: "Source IP: Public IP address of the wireless router (ISP-assigned) | Destination IP: Public IP address of the web server"
+            },
+            {
+              title: "Key Observation",
+              content: "The source IP address changes as the packet passes through the wireless router. This confirms that NAT is translating the private IP address into a public IP address."
+            }
+          ]
+        },
+        {
+          title: "Key Takeaways",
+          content: "Private IP addresses cannot access the internet directly. NAT enables multiple private devices to share a single public IP. DHCP simplifies IP address assignment within internal networks. Packet Tracer simulation mode is useful for visualizing real network behavior."
+        }
+      ],
+      images: [
+        {
+          src: natTopology,
+          alt: "NAT Network Topology",
+          caption: "Cisco Packet Tracer network topology showing wireless router, four PCs, ISP cloud, and external web server (ciscolearn.nat.com)"
+        },
+        {
+          src: natSimulation,
+          alt: "NAT Simulation Mode",
+          caption: "Simulation mode showing packet flow and event list as traffic travels from PC through router to external server"
+        }
+      ],
+      conclusion: "This lab demonstrated how a wireless router uses NAT to allow devices with private IP addresses to communicate with external public networks. Internal hosts obtained private IP addresses through DHCP, while the router used its ISP-assigned public IP address to represent all internal devices when accessing the internet. Packet inspection in Simulation mode confirmed the translation of source IP addresses, validating the NAT process."
     }
   }
 ];
