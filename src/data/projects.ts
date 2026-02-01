@@ -8,6 +8,8 @@ import trafficFlowPdu from "@/assets/projects/traffic-flow-unrouted-pdu.png";
 import trafficFlowRoutedTopology from "@/assets/projects/traffic-flow-routed-topology.png";
 import trafficFlowIpconfig from "@/assets/projects/traffic-flow-ipconfig-renew.png";
 import trafficFlowPing from "@/assets/projects/traffic-flow-ping-test.png";
+import smallOfficeLanTopology from "@/assets/projects/small-office-lan-topology.png";
+import smallOfficeLanTracert from "@/assets/projects/small-office-lan-tracert.png";
 
 export interface Project {
   id: string;
@@ -359,6 +361,86 @@ export const projects: Project[] = [
         }
       ],
       conclusion: "This lab clearly demonstrated the inefficiency of an unrouted LAN in a growing enterprise environment. By implementing routing between departmental networks, broadcast traffic was reduced, network performance improved, and scalability was achieved. Routing is therefore a critical component in modern enterprise network design."
+    }
+  },
+  {
+    id: "small-office-lan-setup",
+    title: "Creating a Small Office LAN",
+    description: "Simulation of creating a small office Local Area Network (LAN) using Cisco Packet Tracer. Physically connected network devices, configured IPv4 addressing using both DHCP and static addressing, and verified connectivity within the LAN and to a remote internet server.",
+    tags: ["Cisco Packet Tracer", "LAN", "DHCP", "Static IP", "Networking", "Troubleshooting"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "This lab was performed using Cisco Packet Tracer to simulate the creation of a small office Local Area Network (LAN). The objective was to physically connect network devices, configure IPv4 addressing using both DHCP and static addressing, and verify connectivity within the LAN and to a remote internet server. This lab demonstrates foundational networking skills including device configuration, IP addressing, and basic troubleshooting.",
+      sections: [
+        {
+          title: "Objectives of the Lab",
+          content: "The objectives were to connect network devices and hosts correctly, configure IPv4 addressing on end devices, verify connectivity between local devices, verify connectivity to a remote internet server, and use networking commands such as ipconfig and tracert to inspect network behavior."
+        },
+        {
+          title: "Network Topology Overview",
+          content: "The network consists of one Office Router, one Switch, two PCs (Admin PC and Manager PC), one Printer, and one Internet Web Server (www.cisco.pt). The Office Router connects the internal LAN to the ISP, while the switch connects all internal end devices."
+        },
+        {
+          title: "Addressing Table",
+          content: "Admin PC NIC: 192.168.1.2/255.255.255.0 | Manager PC NIC: 192.168.1.3/255.255.255.0 | Printer NIC: 192.168.1.100/255.255.255.0 (static) | Web Server NIC: 209.165.200.225/255.255.255.0. The PCs received their IP addresses dynamically from the router's DHCP service, while the printer and server were configured with static IP addresses."
+        },
+        {
+          title: "Physical Connections",
+          content: "All devices were connected using Ethernet copper straight-through cables. Office Router G0/1 → Switch G0/1 | Admin PC F0 → Switch F0/1 | Manager PC F0 → Switch F0/2 | Printer F0 → Switch F0/24 | Office Router G0/0 → ISP Cloud. After powering on all devices, green link lights confirmed successful physical connections."
+        },
+        {
+          title: "IPv4 Configuration",
+          content: "PCs (Admin and Manager) were configured to receive IP addresses automatically via DHCP. They were assigned IPs within the 192.168.1.0/24 network with identical subnet masks and default gateways. The PCs are on the same LAN, so they share the same network parameters, but each device must have a unique IP address to avoid address conflicts.",
+          subsections: [
+            {
+              title: "Printer Configuration",
+              content: "The printer was configured with a static IP address: 192.168.1.100/24. Static addressing ensures reliable access by users. The printer's default gateway would be the same as the PCs, which is the IP address of the Office Router's LAN interface."
+            }
+          ]
+        },
+        {
+          title: "Connectivity Verification",
+          content: "Local connectivity was verified with successful pings from Admin PC to Printer and from Manager PC to Printer. This confirmed that all LAN devices were properly addressed and connected.",
+          subsections: [
+            {
+              title: "Internet Connectivity",
+              content: "Access to the web server using IP address 209.165.200.225 was successful. Access using the URL failed when DNS was misconfigured. Cause: If a device can connect using an IP address but not a URL, the problem is related to DNS resolution."
+            }
+          ]
+        },
+        {
+          title: "Network Commands Used",
+          content: "Two key networking commands were used to analyze and verify the network configuration.",
+          subsections: [
+            {
+              title: "ipconfig Command",
+              content: "ipconfig displayed basic IP information (IP address, subnet mask, default gateway). ipconfig /all displayed additional details including DHCP server, DNS server, MAC address, and lease information."
+            },
+            {
+              title: "tracert Command",
+              content: "tracert www.cisco.pt was used to trace the path to the remote server. The command revealed multiple routers between the PC and the destination. Each router is identified by its IP address and the round-trip time (latency) to that hop. The second router is typically the ISP router, located outside the local office network."
+            }
+          ]
+        },
+        {
+          title: "Reflection",
+          content: "The biggest facilities challenge when setting up a new small office network is physical infrastructure preparation, including cable management and routing, power availability, and proper placement of networking equipment. Without proper planning, even well-configured networks can suffer from reliability and maintenance issues."
+        }
+      ],
+      images: [
+        {
+          src: smallOfficeLanTopology,
+          alt: "Small Office LAN Topology",
+          caption: "Cisco Packet Tracer network topology showing Office Router, Switch, Admin PC, Manager PC, Printer, and Internet Web Server (www.cisco.pt)"
+        },
+        {
+          src: smallOfficeLanTracert,
+          alt: "Tracert Command Output",
+          caption: "Tracert command output showing the path to the destination server with multiple router hops and latency information"
+        }
+      ],
+      conclusion: "This Packet Tracer lab successfully demonstrated the process of building and verifying a small office LAN. It reinforced key concepts such as DHCP, static IP addressing, subnetting, default gateways, and basic troubleshooting. The skills practiced in this lab are directly applicable to real-world networking and entry-level IT roles."
     }
   }
 ];
