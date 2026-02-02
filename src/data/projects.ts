@@ -15,6 +15,13 @@ import dnsHttpSimulation from "@/assets/projects/dns-http-simulation.png";
 import dnsHttpWebBrowser from "@/assets/projects/dns-http-web-browser.png";
 import dnsHttpPduClient from "@/assets/projects/dns-http-pdu-client.png";
 import dnsHttpPduServer from "@/assets/projects/dns-http-pdu-server.png";
+import httpTcpTopology from "@/assets/projects/http-tcp-topology.png";
+import httpTcpPing from "@/assets/projects/http-tcp-ping.png";
+import httpTcpBrowser from "@/assets/projects/http-tcp-browser.png";
+import httpTcpServerServices from "@/assets/projects/http-tcp-server-services.png";
+import httpTcpHtmlCode from "@/assets/projects/http-tcp-html-code.png";
+import httpTcpComplexPdu from "@/assets/projects/http-tcp-complex-pdu.png";
+import httpTcpSimulation from "@/assets/projects/http-tcp-simulation.png";
 
 export interface Project {
   id: string;
@@ -539,6 +546,117 @@ export const projects: Project[] = [
         }
       ],
       conclusion: "This activity successfully demonstrated the interaction between a client and a server during a web request. By using Packet Tracer's simulation mode and PDU inspection tools, it was possible to observe how DNS and HTTP work together to deliver web content. The exercise strengthened understanding of client–server architecture, DNS name resolution, HTTP communication, and OSI model layer interactions."
+    }
+  },
+  {
+    id: "http-tcp-web-request",
+    title: "Observing a Web Request Using HTTP and TCP",
+    description: "Analysis of client–server communication during a web request, examining DNS resolution, HTTP delivery, and TCP connection management using Complex PDUs in Cisco Packet Tracer Simulation Mode.",
+    tags: ["Cisco Packet Tracer", "HTTP", "TCP", "DNS", "Simulation", "Complex PDU"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "This report documents a Packet Tracer simulation designed to observe and analyze client–server communication during a web request. The activity focuses on how a client verifies connectivity to a web server, requests web services using HTTP, and how the underlying TCP protocol manages reliable data transfer. The simulation provides insight into how application-layer web requests translate into multiple packets at the transport and network layers.",
+      sections: [
+        {
+          title: "Objectives",
+          content: "The objectives of this activity were to verify connectivity between a client and a web server, observe DNS name resolution during a web request, analyze HTTP communication between a client and a server, examine TCP behavior including connection setup and acknowledgements, and visualize packet flow using Packet Tracer Simulation Mode."
+        },
+        {
+          title: "Network Scenario Overview",
+          content: "The simulated network consisted of an External Client (PC), a web server hosting the domain ciscolearn.web.com, and supporting DNS services to resolve the domain name to an IP address. The client accessed the server using both ICMP (ping) and HTTP (web browser) to observe different types of network traffic."
+        },
+        {
+          title: "Verifying Connectivity to the Web Server",
+          content: "From the External Client, the Command Prompt was opened via the Desktop tab. The command 'ping ciscolearn.web.com' was executed. The ping output displayed the IP address 172.16.15.200 corresponding to ciscolearn.web.com. This IP address was provided by the DNS server, demonstrating DNS name resolution in action. The successful ping confirmed that the client could reach the web server at the network layer.",
+          subsections: [
+            {
+              title: "Ping Results",
+              content: "Pinging 172.16.15.200 with 32 bytes of data: Reply from 172.16.15.200: bytes=32 time=1ms to 11ms TTL=126. Packets: Sent = 4, Received = 3, Lost = 1 (25% loss). This confirmed network layer connectivity to the web server."
+            }
+          ]
+        },
+        {
+          title: "Connecting to the Web Server via HTTP",
+          content: "From the External Client Desktop, the Web Browser was opened and the URL ciscolearn.web.com was entered. The web page titled 'Welcome to the CiscoLearn Web Center' was successfully displayed, confirming that the server was reachable at the application layer using HTTP. The page content explained how DNS resolves domain names to IP addresses and how HTTP uses port 80 for web requests."
+        },
+        {
+          title: "Viewing and Comparing HTML Code",
+          content: "On the server side, the ciscolearn.web.com server was selected from the logical topology. The Services tab was opened, followed by the HTTP tab. The index.html file was opened in edit mode. The HTML markup on the server was compared with the rendered web page displayed in the client's browser. This demonstrated how HTML code stored on a server is interpreted and displayed by a web browser on a client device.",
+          subsections: [
+            {
+              title: "Server-Side HTML",
+              content: "The server stores multiple HTML files including copyrights.html, helloworld.html, and index.html. The index.html file contains HTML markup with font formatting, headers of different sizes, and text styling examples that the browser renders into a formatted web page."
+            }
+          ]
+        },
+        {
+          title: "Observing Traffic in Simulation Mode",
+          content: "Packet Tracer was switched to Simulation Mode to observe packet-level communication. The Edit Filters option was configured to show only TCP and HTTP under the Misc tab, ensuring only web-related traffic was captured during the simulation.",
+          subsections: [
+            {
+              title: "Creating a Complex PDU",
+              content: "A Complex PDU was created to simulate a web request with the following settings: Source Device: External Client | Application: HTTP | Destination IP: 172.16.15.200 | Starting Source Port: 1000 | Destination Port: 80 | Periodic Interval: 120 seconds. This generated repeated HTTP traffic for observation."
+            },
+            {
+              title: "Traffic Flow Observation",
+              content: "The simulation was started and multiple packets were observed being exchanged between the client and server. The animation showed packets traveling through the RemoteSwitch, Internet cloud, and WebSwitch before reaching the ciscolearn.web.com server."
+            }
+          ]
+        },
+        {
+          title: "Results and Analysis",
+          content: "The web request generated multiple TCP packets, not a single packet. TCP established a connection before data transfer and acknowledged receipt of packets. HTTP traffic relies on TCP, which increases overhead due to connection setup (three-way handshake), acknowledgements, and data segmentation. This demonstrated why web traffic involves significantly more packets than simple ICMP pings.",
+          subsections: [
+            {
+              title: "TCP Overhead Explanation",
+              content: "Unlike a simple ping which sends ICMP packets directly, HTTP over TCP requires: SYN packet for connection initiation, SYN-ACK for connection acknowledgment, ACK to complete handshake, HTTP request transmission, HTTP response (potentially multiple segments), and acknowledgements for each segment received."
+            }
+          ]
+        },
+        {
+          title: "Skills Demonstrated",
+          content: "This activity demonstrated proficiency in Packet Tracer Simulation Mode analysis, DNS name resolution understanding, HTTP and TCP protocol interaction, packet-level traffic inspection using Complex PDUs, and technical reporting and documentation."
+        }
+      ],
+      images: [
+        {
+          src: httpTcpTopology,
+          alt: "HTTP TCP Network Topology",
+          caption: "Cisco Packet Tracer logical topology showing External Client, DNS Server, RemoteSwitch, Internet cloud, WebSwitch, and web servers (ciscolearn.web.com and test.web.com)"
+        },
+        {
+          src: httpTcpPing,
+          alt: "Ping Command Output",
+          caption: "Command Prompt showing successful ping to ciscolearn.web.com (172.16.15.200) with DNS resolution and round-trip times of 1-11ms"
+        },
+        {
+          src: httpTcpBrowser,
+          alt: "Web Browser Display",
+          caption: "CiscoLearn Web Center page displayed in client browser, explaining DNS resolution and HTTP port 80 communication"
+        },
+        {
+          src: httpTcpServerServices,
+          alt: "Server HTTP Services",
+          caption: "Server Services tab showing HTTP configuration with available HTML files: copyrights.html, helloworld.html, and index.html"
+        },
+        {
+          src: httpTcpHtmlCode,
+          alt: "Server HTML Source Code",
+          caption: "Raw HTML source code of index.html showing markup for headings, font colors, and text formatting that renders in the client browser"
+        },
+        {
+          src: httpTcpComplexPdu,
+          alt: "Complex PDU Configuration",
+          caption: "Complex PDU settings panel configured for HTTP application to 172.16.15.200 with source port 1000, destination port 80, and 120-second periodic interval"
+        },
+        {
+          src: httpTcpSimulation,
+          alt: "Simulation Mode Traffic Flow",
+          caption: "Packet Tracer simulation showing HTTP PDU envelope traveling from External Client through RemoteSwitch toward the Internet and web server"
+        }
+      ],
+      conclusion: "This activity provided a clear visualization of how web requests function at multiple layers of the network. While a user experiences a simple web page load, the underlying process involves DNS resolution, TCP connection establishment, HTTP requests, and acknowledgements. By using Simulation Mode and Complex PDUs in Packet Tracer, it was possible to understand the hidden complexity behind everyday web browsing and the importance of TCP in ensuring reliable data delivery."
     }
   }
 ];
