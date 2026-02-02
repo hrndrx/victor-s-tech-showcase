@@ -10,6 +10,11 @@ import trafficFlowIpconfig from "@/assets/projects/traffic-flow-ipconfig-renew.p
 import trafficFlowPing from "@/assets/projects/traffic-flow-ping-test.png";
 import smallOfficeLanTopology from "@/assets/projects/small-office-lan-topology.png";
 import smallOfficeLanTracert from "@/assets/projects/small-office-lan-tracert.png";
+import dnsHttpTopology from "@/assets/projects/dns-http-topology.png";
+import dnsHttpSimulation from "@/assets/projects/dns-http-simulation.png";
+import dnsHttpWebBrowser from "@/assets/projects/dns-http-web-browser.png";
+import dnsHttpPduClient from "@/assets/projects/dns-http-pdu-client.png";
+import dnsHttpPduServer from "@/assets/projects/dns-http-pdu-server.png";
 
 export interface Project {
   id: string;
@@ -441,6 +446,99 @@ export const projects: Project[] = [
         }
       ],
       conclusion: "This Packet Tracer lab successfully demonstrated the process of building and verifying a small office LAN. It reinforced key concepts such as DHCP, static IP addressing, subnetting, default gateways, and basic troubleshooting. The skills practiced in this lab are directly applicable to real-world networking and entry-level IT roles."
+    }
+  },
+  {
+    id: "dns-http-client-server",
+    title: "Client–Server Interaction Using DNS and HTTP",
+    description: "Analysis of client–server interaction demonstrating how a client requests a web page from a server, how DNS resolves domain names to IP addresses, and how HTTP delivers web content. Includes detailed PDU inspection across OSI layers.",
+    tags: ["Cisco Packet Tracer", "DNS", "HTTP", "OSI Model", "Client-Server", "PDU Analysis"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "This report documents a practical networking exercise carried out using Cisco Packet Tracer to observe and analyze the interaction between a client (PC) and a server. The activity focuses on understanding how a client requests a web page from a server, how DNS resolves a domain name to an IP address, and how HTTP delivers the requested web content. The exercise demonstrates fundamental concepts in client–server communication, application-layer protocols, and packet flow through the OSI model.",
+      sections: [
+        {
+          title: "Objectives",
+          content: "The objectives of this activity were to observe how a client interacts with a server in a networked environment, to understand the role of DNS in resolving domain names to IP addresses, to analyze how HTTP is used to request and deliver a web page, and to inspect Protocol Data Units (PDUs) and understand how data moves through the OSI layers."
+        },
+        {
+          title: "Background and Scenario",
+          content: "In real-world networks, client devices such as desktop computers rely on servers to provide services including DNS, web hosting (HTTP), file transfer, and IP addressing. While physical networks can support many services, simulated environments like Packet Tracer provide a controlled platform with selected services for learning purposes. In this activity, a simple network topology was used, consisting of one PC (client) and one server configured to provide DNS services and HTTP web services. The goal was to observe the complete process that occurs when a user enters a web address (www.example.com) into a browser, including DNS name resolution, HTTP request transmission, and web page delivery from the server to the client."
+        },
+        {
+          title: "Methodology",
+          content: "Packet Tracer was switched from Realtime Mode to Simulation Mode using the simulation mode icon located at the bottom-right of the workspace. Simulation mode allows packet-level visualization of network traffic.",
+          subsections: [
+            {
+              title: "Configuring Event List Filters",
+              content: "To focus only on relevant traffic, all event filters were cleared using Show All/None. Only DNS (under IPv4) and HTTP (under Miscellaneous) protocols were selected. This ensured that only DNS and HTTP events were captured and displayed during the simulation."
+            },
+            {
+              title: "Requesting a Web Page",
+              content: "On the client PC, the Desktop tab was opened, the Web Browser application was launched, and the URL www.example.com was entered with the Go button clicked. The PC window was minimized to allow observation of packet flow in the simulation panel."
+            },
+            {
+              title: "Running the Simulation",
+              content: "The Play button in the Simulation Panel was used to run the simulation. Packet Tracer animated the exchange between the PC and the server and logged each event in the Event List. The following sequence of events was observed: The PC sent a DNS request to resolve the domain name, the server responded with the corresponding IP address, the PC sent an HTTP request to the server, the server transmitted the web page in two HTTP segments, and the PC acknowledged receipt of the data."
+            }
+          ]
+        },
+        {
+          title: "PDU Analysis",
+          content: "The PDU Information window was accessed by clicking the colored box in the Event List for the first recorded event. This provided detailed packet-level information.",
+          subsections: [
+            {
+              title: "OSI Layer Examination",
+              content: "The PDU Information Window displays how data is processed across the OSI model. By clicking Next Layer >>, each layer was examined. Application Layer shows DNS and HTTP requests and responses. Transport Layer shows TCP segmentation and reliability mechanisms. Network Layer shows IP addressing and routing. Data Link Layer shows framing and MAC addressing. Physical Layer shows transmission of bits. Reviewing multiple PDUs gave a complete picture of how a web request is constructed, transmitted, and acknowledged across the network."
+            },
+            {
+              title: "DNS Query Details",
+              content: "Layer 7: DNS | Layer 4: UDP Src Port: 1031, Dst Port: 53 | Layer 3: IP Header Src. IP: 192.168.1.1, Dest. IP: 192.168.1.2 | Layer 2: Ethernet II Header with source and destination MAC addresses | Layer 1: FastEthernet0. The DNS client sends an A DNS query to the DNS server to resolve the domain name to an IP address."
+            },
+            {
+              title: "DNS Response Details",
+              content: "The server receives the DNS request on FastEthernet0. Inbound PDU shows Layer 7: DNS with source and destination ports swapped. The server processes the query and responds with the IP address mapping for the requested domain."
+            }
+          ]
+        },
+        {
+          title: "Results and Observations",
+          content: "DNS resolution occurs before any HTTP communication. The server delivers the web page in multiple segments, demonstrating TCP's role in reliable data transfer. Packet Tracer effectively visualizes the step-by-step communication process. Each protocol operates at a specific OSI layer, reinforcing the layered network model."
+        },
+        {
+          title: "Skills Demonstrated",
+          content: "This activity demonstrated several key networking skills: Network simulation using Cisco Packet Tracer, client–server communication analysis, DNS and HTTP protocol understanding, OSI model packet inspection, and technical documentation and reporting. This practical knowledge is essential for networking, cybersecurity, and system administration roles."
+        }
+      ],
+      images: [
+        {
+          src: dnsHttpTopology,
+          alt: "DNS and HTTP Network Topology",
+          caption: "Cisco Packet Tracer topology showing PC (client) and Server with Simulation Panel in DNS/HTTP filter mode"
+        },
+        {
+          src: dnsHttpSimulation,
+          alt: "DNS/HTTP Simulation Event List",
+          caption: "Simulation mode capturing DNS and HTTP traffic events between PC and Server"
+        },
+        {
+          src: dnsHttpWebBrowser,
+          alt: "Web Browser Request",
+          caption: "PC Web Browser accessing www.example.com and receiving the Cisco Packet Tracer welcome page"
+        },
+        {
+          src: dnsHttpPduClient,
+          alt: "Client PDU Information",
+          caption: "OSI Model view of outbound DNS query from PC showing Layer 4 UDP (port 53), Layer 3 IP addresses, and Layer 2 Ethernet framing"
+        },
+        {
+          src: dnsHttpPduServer,
+          alt: "Server PDU Information",
+          caption: "Server PDU Information showing inbound and outbound DNS processing with MAC address swapping and port translation"
+        }
+      ],
+      conclusion: "This activity successfully demonstrated the interaction between a client and a server during a web request. By using Packet Tracer's simulation mode and PDU inspection tools, it was possible to observe how DNS and HTTP work together to deliver web content. The exercise strengthened understanding of client–server architecture, DNS name resolution, HTTP communication, and OSI model layer interactions."
     }
   }
 ];
