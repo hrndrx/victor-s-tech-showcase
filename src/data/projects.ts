@@ -658,6 +658,121 @@ export const projects: Project[] = [
       ],
       conclusion: "This activity provided a clear visualization of how web requests function at multiple layers of the network. While a user experiences a simple web page load, the underlying process involves DNS resolution, TCP connection establishment, HTTP requests, and acknowledgements. By using Simulation Mode and Complex PDUs in Packet Tracer, it was possible to understand the hidden complexity behind everyday web browsing and the importance of TCP in ensuring reliable data delivery."
     }
+  },
+  {
+    id: "network-troubleshooting-utilities",
+    title: "Network Troubleshooting Utilities",
+    description: "Comprehensive guide to essential network troubleshooting utilities including ping, traceroute, nslookup, FTP testing, ipconfig, and netstat. Covers practical scenarios and a structured troubleshooting methodology aligned with the OSI model.",
+    tags: ["Networking", "Troubleshooting", "ping", "traceroute", "nslookup", "TCP/IP"],
+    type: "report",
+    category: "networking",
+    documentation: {
+      introduction: "Modern computer networks are complex systems made up of end devices, switches, routers, firewalls, servers, and internet service providers (ISPs). Network failures can occur at any layer, ranging from physical cabling issues to DNS resolution failures and routing problems. Network troubleshooting utilities are essential tools used by network administrators and engineers to identify, isolate, and resolve network problems efficiently. This report discusses key network troubleshooting utilities, how they work, and practical scenarios where each tool is applied.",
+      sections: [
+        {
+          title: "Ping Utility",
+          content: "Ping is a basic but powerful diagnostic tool used to test reachability between two devices on a network using ICMP (Internet Control Message Protocol). It sends ICMP Echo Request packets to a target host, awaits ICMP Echo Reply packets, and measures round-trip time (latency) and packet loss.",
+          subsections: [
+            {
+              title: "Common Uses",
+              content: "Checking if a host is online, measuring network latency, detecting packet loss, and testing basic connectivity. Example commands: ping 8.8.8.8 or ping google.com"
+            },
+            {
+              title: "Interpretation",
+              content: "Successful replies indicate the network path exists. High latency suggests congestion or long routing paths. Packet loss indicates an unstable link or overloaded device."
+            }
+          ]
+        },
+        {
+          title: "Traceroute (tracert)",
+          content: "Traceroute (Linux/macOS) or tracert (Windows) maps the path packets take from source to destination by identifying intermediate routers. It sends packets with increasing TTL (Time To Live), each router decrements TTL, and when TTL reaches zero, the router responds with ICMP Time Exceeded.",
+          subsections: [
+            {
+              title: "Common Uses",
+              content: "Identifying where delays occur, locating failed or unreachable hops, and diagnosing ISP routing problems. Example: tracert www.google.com"
+            },
+            {
+              title: "Interpretation",
+              content: "A sudden latency jump indicates a congestion point. Asterisks (* * *) suggest firewall filtering or dropped ICMP packets. Failure near ISP hops indicates a provider-side issue."
+            }
+          ]
+        },
+        {
+          title: "NSLOOKUP",
+          content: "Nslookup is a DNS troubleshooting tool used to query Domain Name System (DNS) servers. It sends DNS queries to a specified DNS server and resolves domain names to IP addresses. It can also test different DNS servers manually.",
+          subsections: [
+            {
+              title: "Common Uses",
+              content: "Diagnosing DNS failures, verifying domain resolution, and testing ISP DNS reliability. Examples: nslookup google.com or nslookup google.com 8.8.8.8"
+            },
+            {
+              title: "Interpretation",
+              content: "No response means the DNS server is unreachable. A wrong IP indicates misconfigured DNS. If public DNS works but ISP DNS doesn't, there's an ISP DNS issue."
+            }
+          ]
+        },
+        {
+          title: "FTP (File Transfer Protocol) Testing",
+          content: "FTP is commonly used to test application-layer connectivity and throughput by transferring files between client and server. It establishes a control connection (TCP port 21), opens data connections for file transfers, and measures download/upload speed and reliability.",
+          subsections: [
+            {
+              title: "Common Uses",
+              content: "Testing download speeds, checking firewall rules, and verifying TCP reliability. Example: ftp ftp.gnu.org"
+            },
+            {
+              title: "Interpretation",
+              content: "Connection timeout indicates a firewall or routing issue. Slow transfer suggests congestion or bandwidth limitation. Login succeeds but transfer fails points to a passive/active mode issue."
+            }
+          ]
+        },
+        {
+          title: "IP Configuration Utilities",
+          content: "Tools such as ipconfig (Windows) and ifconfig/ip addr (Linux) display and manage IP configuration details. They are used for checking assigned IP addresses, verifying DHCP operation, and identifying gateway and DNS servers.",
+          subsections: [
+            {
+              title: "Interpretation",
+              content: "An address like 169.254.x.x indicates DHCP failure. Missing gateway means no internet routing. Incorrect DNS causes name resolution problems. Example: ipconfig /all"
+            }
+          ]
+        },
+        {
+          title: "Netstat",
+          content: "Netstat displays active network connections, listening ports, and routing tables. It is used for identifying open ports, detecting suspicious connections, and verifying service availability.",
+          subsections: [
+            {
+              title: "Interpretation",
+              content: "Many connections in TIME_WAIT suggest resource exhaustion. Unexpected listening ports indicate a security risk. Example: netstat -an"
+            }
+          ]
+        },
+        {
+          title: "Common Network Troubleshooting Methodology",
+          content: "A structured troubleshooting approach improves efficiency and aligns with the OSI model to reduce guesswork.",
+          subsections: [
+            {
+              title: "Step-by-Step Approach",
+              content: "1. Identify the problem. 2. Check physical and local connectivity. 3. Test IP configuration. 4. Test reachability (ping). 5. Trace the path (traceroute). 6. Verify DNS resolution. 7. Test application-layer services."
+            }
+          ]
+        },
+        {
+          title: "Real-World Scenario Example",
+          content: "Problem: User is connected to Wi-Fi but cannot access websites.",
+          subsections: [
+            {
+              title: "Diagnosis",
+              content: "ping 8.8.8.8 → successful. ping google.com → fails. nslookup google.com → timeout."
+            },
+            {
+              title: "Conclusion and Solution",
+              content: "DNS failure likely caused by ISP DNS overload or network congestion. Solution: Switch to public DNS servers such as 1.1.1.1 or 8.8.8.8."
+            }
+          ]
+        }
+      ],
+      images: [],
+      conclusion: "Network troubleshooting utilities are critical tools for diagnosing connectivity, performance, and reliability issues in modern networks. Understanding how these tools work and interpreting their results allows IT professionals to identify faults accurately and implement effective solutions. Mastery of these utilities demonstrates practical networking competence, which is essential for roles in network administration, cybersecurity, and IT infrastructure support."
+    }
   }
 ];
 
