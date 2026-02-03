@@ -97,6 +97,15 @@ const CertificationsSection = () => {
               ></div>
               <p className="mt-2 text-sm font-medium text-muted-foreground">Introduction to Cybersecurity</p>
             </div>
+            <div className="flex flex-col items-center">
+              <div
+                data-iframe-width="200"
+                data-iframe-height="350"
+                data-share-badge-id="4cc4d0e7-7d60-4f9e-8849-2b8fe0a4d5be"
+                data-share-badge-host="https://www.credly.com"
+              ></div>
+              <p className="mt-2 text-sm font-medium text-muted-foreground">Getting Started with Cisco Packet Tracer</p>
+            </div>
           </div>
         )}
 
