@@ -121,14 +121,14 @@ const CertificationsSection = () => {
 
         {/* Certificates Tab Content */}
         {activeTab === "certificates" && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {certificates.map((cert) => (
               <div
                 key={cert.id}
-                className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
+                className="group rounded-lg border border-border bg-card overflow-hidden hover:border-primary/50 transition-all duration-300 card-glow"
               >
                 {/* Certificate Image */}
-                <div className="aspect-[16/10] bg-muted overflow-hidden">
+                <div className="aspect-[16/11] bg-muted overflow-hidden">
                   <img 
                     src={cert.image} 
                     alt={cert.title}
@@ -137,36 +137,30 @@ const CertificationsSection = () => {
                 </div>
                 
                 {/* Certificate Info */}
-                <div className="p-5 border-t border-border">
-                  <h3 className="font-semibold text-lg text-foreground mb-1">{cert.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{cert.issuer}</p>
+                <div className="p-3 border-t border-border">
+                  <h3 className="font-medium text-sm text-foreground mb-0.5 line-clamp-1">{cert.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-2">{cert.date}</p>
                   
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-muted-foreground">
-                      Completed: {cert.date}
-                    </span>
-                    
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={cert.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                        title="View Certificate"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        View
-                      </a>
-                      <a
-                        href={cert.pdfUrl}
-                        download
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
-                        title="Download Certificate"
-                      >
-                        <Download className="h-4 w-4" />
-                        Download
-                      </a>
-                    </div>
+                  <div className="flex items-center gap-1.5">
+                    <a
+                      href={cert.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 px-2 py-1 rounded text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                      title="View Certificate"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      View
+                    </a>
+                    <a
+                      href={cert.pdfUrl}
+                      download
+                      className="flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                      title="Download Certificate"
+                    >
+                      <Download className="h-3 w-3" />
+                      Download
+                    </a>
                   </div>
                 </div>
               </div>
