@@ -32,38 +32,40 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        {/* Projects grid - larger square cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {/* Projects list */}
+        <div className="flex flex-col gap-4 max-w-3xl mx-auto">
           {projects.map((project) => (
             <Link
               key={project.id}
               to={`/projects/${project.id}`}
-              className="group bg-card border border-border rounded-xl p-8 hover:border-primary/50 transition-all duration-300 card-glow block aspect-square flex flex-col justify-between"
+              className="group bg-card border border-border rounded-lg p-5 hover:border-primary/50 transition-all duration-300 card-glow block"
             >
-              {/* Type badge */}
-              <div>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium ${typeColors[project.type]} mb-4`}>
-                  {typeLabels[project.type]}
-                </span>
-
-                {/* Title */}
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-muted-foreground mb-6 line-clamp-4">
-                  {project.description}
-                </p>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-secondary text-secondary-foreground text-xs font-mono rounded">
-                    {tag}
-                  </span>
-                ))}
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-mono font-medium ${typeColors[project.type]}`}>
+                      {typeLabels[project.type]}
+                    </span>
+                    <h3 className="text-lg font-semibold group-hover:text-primary transition-colors truncate">
+                      {project.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.slice(0, 4).map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 bg-secondary text-secondary-foreground text-xs font-mono rounded">
+                        {tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 4 && (
+                      <span className="px-2 py-0.5 text-muted-foreground text-xs">
+                        +{project.tags.length - 4} more
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             </Link>
           ))}
