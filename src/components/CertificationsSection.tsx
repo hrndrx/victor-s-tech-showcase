@@ -3,6 +3,7 @@ import { Award, BadgeCheck, Medal, Download, ExternalLink } from "lucide-react";
 
 import introToCybersecurityImg from "@/assets/certificates/introduction-to-cybersecurity.png";
 import packetTracerImg from "@/assets/certificates/getting-started-cisco-packet-tracer.png";
+import networkingBasicsImg from "@/assets/certificates/networking-basics.png";
 
 const certificates = [
   {
@@ -22,6 +23,15 @@ const certificates = [
     pdfUrl: "/certificates/getting-started-cisco-packet-tracer.pdf",
     image: packetTracerImg,
     description: "Hands-on experience with network simulation and configuration using Packet Tracer.",
+  },
+  {
+    id: 3,
+    title: "Networking Basics",
+    issuer: "Cisco Networking Academy",
+    date: "03 Feb 2026",
+    pdfUrl: "/certificates/networking-basics.pdf",
+    image: networkingBasicsImg,
+    description: "Core networking concepts including network types, protocols, and infrastructure fundamentals.",
   },
 ];
 
